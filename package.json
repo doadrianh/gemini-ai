@@ -13,6 +13,9 @@
     "lint": "vite lint",
     "test": "vite test --env=jsdom"
   },
+  "overrides": {
+    "rollup": "npm:@rollup/wasm-node"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@hookform/resolvers": "^3.9.1",
