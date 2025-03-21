@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         {
-            "src": "api/**/*.ts",
+            "src": "dist/api/**/*.js",
             "use": "@vercel/node"
         },
         {
@@ -10,19 +10,22 @@
             "use": "@vercel/static-build",
             "config": {
                 "distDir": "dist/public",
-                "buildCommand": "npm run build:client"
+                "buildCommand": "npm run build"
             }
         }
     ],
     "routes": [
         {
             "src": "/api/(.*)",
-            "dest": "/api/[[...route]].ts"
+            "dest": "/dist/api/[[...route]].js"
         },
         {
             "src": "/(.*)",
             "dest": "dist/public/index.html"
         }
     ],
-    "installCommand": "apt-get update && apt-get install -y cmake && npm install --no-optional"
+    "installCommand": "apt-get update && apt-get install -y cmake && npm install --no-optional",
+    "env": {
+        "NODE_ENV": "production"
+    }
 }

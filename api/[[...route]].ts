@@ -1,15 +1,22 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { setupEnvironment } from "../server/env";
+import * as dotenv from 'dotenv';
 import {
     GoogleGenerativeAI,
     type ChatSession,
 } from "@google/generative-ai";
 import { marked } from "marked";
 
-const env = setupEnvironment();
+// Load environment variables directly
+dotenv.config();
+
+// Get API key from environment variables
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || '';
+if (!GOOGLE_API_KEY) {
+    console.error('GOOGLE_API_KEY is not set in environment variables');
+}
 
 // Initialize Gemini AI
-const genAI = new GoogleGenerativeAI(env.GOOGLE_API_KEY);
+const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
 const model = genAI.getGenerativeModel({
     model: "gemini-2.0-flash-exp",
     generationConfig: {
